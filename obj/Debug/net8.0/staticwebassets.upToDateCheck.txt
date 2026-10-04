@@ -1,0 +1,6 @@
+wwwroot\images\haircut.png
+wwwroot\images\beard.png
+wwwroot\images\hair-dying.png
+wwwroot\images\vip.png
+wwwroot\images\hair-care.jpg
+wwwroot\images\trimming-beard.jpg
