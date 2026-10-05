@@ -1,6 +1,8 @@
-﻿using Booking_thanhnt.Data;
+﻿using Azure;
+using Booking_thanhnt.Data;
 using Booking_thanhnt.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace Booking_thanhnt.Controllers
@@ -19,14 +21,60 @@ namespace Booking_thanhnt.Controllers
         // 1. GET: api/Services
         // LẤY DANH SÁCH DỊCH VỤ
         [HttpGet]
-        public async Task<IActionResult> GetServices()
+        public async Task<IActionResult> GetServices(
+           int page = 1,
+           int pageSize = 10)
         {
-            var services = await _context.Services
+            // Không cho page < 1
+            if (page < 1)
+            {
+                page = 1;
+            }
+
+            // Giới hạn pageSize
+            if (pageSize < 1)
+            {
+                pageSize = 10;
+            }
+
+            if (pageSize > 100)
+            {
+                pageSize = 100;
+            }
+
+            // Query - CHƯA ToListAsync()
+            var query = _context.Services
                 .AsNoTracking()
-                .OrderBy(s => s.Id)
+                .OrderByDescending(s => s.Id);
+
+            // Tổng số bản ghi
+            var totalItems = await query.CountAsync();
+
+            // Tổng số trang
+            var totalPages = (int)Math.Ceiling(
+                totalItems / (double)pageSize
+            );
+
+            // Nếu page vượt quá tổng số trang
+            if (totalPages > 0 && page > totalPages)
+            {
+                page = totalPages;
+            }
+
+            // Lấy dữ liệu của trang hiện tại
+            var services = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
-            return Ok(services);
+            return Ok(new
+            {
+                data = services,
+                page = page,
+                pageSize = pageSize,
+                totalItems = totalItems,
+                totalPages = totalPages
+            });
         }
         #region
         [HttpGet("get-service-detail")]

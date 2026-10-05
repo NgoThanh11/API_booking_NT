@@ -11,5 +11,6 @@ namespace Booking_thanhnt.Models
         public string BranchAddress { get; set; }
         public string BranchPhone { get; set; }
         public DateTime CreatedAt { get; set; }
+        public ICollection<Barber> Barbers { get; set; } = new List<Barber>();
     }
 }

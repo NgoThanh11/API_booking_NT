@@ -18,7 +18,7 @@ namespace Booking_thanhnt.Controllers
             _context = context;
         }
 
-        // POST: api/Booking
+        #region  Đặt lịch Booking
         [HttpPost("create-booking")]
         public async Task<IActionResult> CreateBooking(
             [FromBody] CreateBookingRequest request)
@@ -195,6 +195,8 @@ namespace Booking_thanhnt.Controllers
                 });
             }
         }
+        #endregion
+
         #region Lấy danh sách booking
         [HttpGet("get-all-booking")]
         public async Task<IActionResult> GetAllBookings()

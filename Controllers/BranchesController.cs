@@ -20,18 +20,37 @@ namespace Booking_thanhnt.Controllers
         // GET: api/Branches
         // Lấy danh sách tất cả chi nhánh
         [HttpGet]
-        public async Task<IActionResult> GetBranches()
+        public async Task<IActionResult> GetBranches(int page = 1, int pageSize = 10)
         {
-            var branches = await _context.Branches
-                .ToListAsync();
-
-            return Ok(branches);
+            // Không cho page < 1
+            if (page < 1)
+            { page = 1; }
+            // Giới hạn pageSize để tránh request quá lớn
+            if (pageSize < 1) { pageSize = 10; }
+            if (pageSize > 100) { pageSize = 100; }
+            // Query
+            var query = _context.Branches.AsNoTracking().OrderByDescending(x => x.BranchId);
+            // Tổng số bản ghi
+            var totalItems = await query.CountAsync();
+            // Tổng số trang
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+            // Nếu page vượt quá tổng số trang
+            if (totalPages > 0 && page > totalPages) { page = totalPages; }
+            // Lấy dữ liệu của trang hiện tại
+            var branches = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            return Ok(new
+            {
+                data = branches,
+                page = page,
+                pageSize = pageSize,
+                totalItems = totalItems,
+                totalPages = totalPages
+            });
         }
-
 
         // GET: api/Branches/1
         // Xem chi tiết 1 chi nhánh
-        [HttpGet("{id}")]
+        [HttpGet("detail-branch")]
         public async Task<IActionResult> GetBranch(int id)
         {
             var branch = await _context.Branches
@@ -51,7 +70,7 @@ namespace Booking_thanhnt.Controllers
 
         // POST: api/Branches
         // Thêm chi nhánh
-        [HttpPost]
+        [HttpPost("create-branch")]
         public async Task<IActionResult> CreateBranch(Branch branch)
         {
             branch.CreatedAt = DateTime.Now;
@@ -66,10 +85,8 @@ namespace Booking_thanhnt.Controllers
             });
         }
 
-
-        // PUT: api/Branches/1
         // Cập nhật chi nhánh
-        [HttpPut("{id}")]
+        [HttpPut("update-branch")]
         public async Task<IActionResult> UpdateBranch(int id, Branch branch)
         {
             if (id != branch.BranchId)
@@ -94,7 +111,7 @@ namespace Booking_thanhnt.Controllers
 
         // DELETE: api/Branches/1
         // Xóa chi nhánh
-        [HttpDelete("{id}")]
+        [HttpDelete("delete-branch")]
         public async Task<IActionResult> DeleteBranch(int id)
         {
             var branch = await _context.Branches

@@ -138,3 +138,4 @@ F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_th
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\ref\Booking_thanhnt.dll
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Booking_thanhnt.staticwebassets.runtime.json
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.sourcelink.json
