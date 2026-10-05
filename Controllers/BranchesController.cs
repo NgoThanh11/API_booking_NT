@@ -80,6 +80,7 @@ namespace Booking_thanhnt.Controllers
 
             return Ok(new
             {
+                success = true,
                 message = "Thêm chi nhánh thành công",
                 data = branch
             });
@@ -87,25 +88,52 @@ namespace Booking_thanhnt.Controllers
 
         // Cập nhật chi nhánh
         [HttpPut("update-branch")]
-        public async Task<IActionResult> UpdateBranch(int id, Branch branch)
+        public async Task<IActionResult> UpdateBranch(
+            int id,
+            Branch branch)
         {
-            if (id != branch.BranchId)
+            try
             {
-                return BadRequest(new
+                var existingBranch = await _context.Branches
+                    .FirstOrDefaultAsync(x => x.BranchId == id);
+
+                if (existingBranch == null)
                 {
-                    message = "Id không khớp"
+                    return NotFound(new
+                    {
+                        message = "Không tìm thấy chi nhánh"
+                    });
+                }
+
+                existingBranch.BranchName = branch.BranchName;
+                existingBranch.BranchAddress = branch.BranchAddress;
+                existingBranch.BranchPhone = branch.BranchPhone;
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Cập nhật chi nhánh thành công",
+                    data = new
+                    {
+                        branchId = existingBranch.BranchId,
+                        branchName = existingBranch.BranchName,
+                        branchAddress = existingBranch.BranchAddress,
+                        branchPhone = existingBranch.BranchPhone,
+                        createdAt = existingBranch.CreatedAt
+                    }
                 });
             }
-
-
-            _context.Entry(branch).State = EntityState.Modified;
-
-            await _context.SaveChangesAsync();
-
-            return Ok(new
+            catch (Exception ex)
             {
-                message = "Cập nhật chi nhánh thành công"
-            });
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Có lỗi khi cập nhật chi nhánh",
+                    error = ex.Message
+                });
+            }
         }
 
 
@@ -134,6 +162,7 @@ namespace Booking_thanhnt.Controllers
 
             return Ok(new
             {
+                success = true,
                 message = "Xóa chi nhánh thành công"
             });
         }

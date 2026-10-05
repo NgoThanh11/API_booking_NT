@@ -1,5 +1,15 @@
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.csproj.AssemblyReference.cache
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\rpswa.dswa.cache.json
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.GeneratedMSBuildEditorConfig.editorconfig
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.AssemblyInfoInputs.cache
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.AssemblyInfo.cs
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.csproj.CoreCompileInputs.cache
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.MvcApplicationPartsAssemblyInfo.cs
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.MvcApplicationPartsAssemblyInfo.cache
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.sourcelink.json
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\appsettings.Development.json
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\appsettings.json
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Booking_thanhnt.staticwebassets.runtime.json
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Booking_thanhnt.staticwebassets.endpoints.json
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Booking_thanhnt.exe
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Booking_thanhnt.deps.json
@@ -8,7 +18,9 @@ F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Booking_th
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Booking_thanhnt.pdb
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Azure.Core.dll
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Azure.Identity.dll
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\BCrypt-Net-Next.dll
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Humanizer.dll
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -114,14 +126,6 @@ F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\runtimes\w
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.csproj.AssemblyReference.cache
-F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\rpswa.dswa.cache.json
-F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.GeneratedMSBuildEditorConfig.editorconfig
-F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.AssemblyInfoInputs.cache
-F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.AssemblyInfo.cs
-F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.csproj.CoreCompileInputs.cache
-F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.MvcApplicationPartsAssemblyInfo.cs
-F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.MvcApplicationPartsAssemblyInfo.cache
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\rjimswa.dswa.cache.json
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
@@ -137,5 +141,3 @@ F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_th
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.genruntimeconfig.cache
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\ref\Booking_thanhnt.dll
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
-F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Booking_thanhnt.staticwebassets.runtime.json
-F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.sourcelink.json

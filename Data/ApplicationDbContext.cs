@@ -14,6 +14,7 @@ namespace Booking_thanhnt.Data
         public DbSet<Barber> Barbers { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Booking> Bookings { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<BookingService> BookingServices { get; set; }
 
         //Cấu hình quan hệ giữa bookings và bookingservices

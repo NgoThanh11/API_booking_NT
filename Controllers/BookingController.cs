@@ -199,15 +199,59 @@ namespace Booking_thanhnt.Controllers
 
         #region Lấy danh sách booking
         [HttpGet("get-all-booking")]
-        public async Task<IActionResult> GetAllBookings()
+        public async Task<IActionResult> GetAllBookings(
+            int page = 1,
+            int pageSize = 10)
         {
             try
             {
-                var bookings = await _context.Bookings
+                // VALIDATE PHÂN TRANG
+                if (page < 1)
+                {
+                    page = 1;
+                }
+
+                if (pageSize < 1)
+                {
+                    pageSize = 10;
+                }
+
+                if (pageSize > 100)
+                {
+                    pageSize = 100;
+                }
+
+                // QUERY
+                // Booking mới nhất lên đầu
+                var query = _context.Bookings
+                    .AsNoTracking()
                     .Include(x => x.BookingServices)
-                    .OrderByDescending(x => x.Id)
+                    .OrderByDescending(x => x.Id);
+
+
+                // TỔNG SỐ BOOKING
+                var totalItems = await query.CountAsync();
+
+                // TỔNG SỐ TRANG
+
+                var totalPages = (int)Math.Ceiling(
+                    totalItems / (double)pageSize
+                );
+
+                // Nếu page vượt quá số trang
+                if (totalPages > 0 && page > totalPages)
+                {
+                    page = totalPages;
+                }
+
+                // LẤY BOOKING CỦA TRANG
+
+                var bookings = await query
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
+                // MAP DTO
                 var result = bookings.Select(x => new BookingAdminDto
                 {
                     Id = x.Id,
@@ -228,19 +272,27 @@ namespace Booking_thanhnt.Controllers
 
                     Status = x.Status,
 
-                    Services = x.BookingServices.Select(bs => new BookingServiceDto
-                    {
-                        Id = bs.Id,
-                        ServiceId = bs.ServiceId,
-                        Service_text = bs.Service_text,
-                        Price = bs.Price
-                    }).ToList()
+                    Services = x.BookingServices
+                        .Select(bs => new BookingServiceDto
+                        {
+                            Id = bs.Id,
+                            ServiceId = bs.ServiceId,
+                            Service_text = bs.Service_text,
+                            Price = bs.Price
+                        })
+                        .ToList()
                 }).ToList();
-
+                // RESPONSE
+                // RESPONSE
                 return Ok(new
                 {
                     success = true,
-                    data = result
+                    data = result,
+
+                    page = page,
+                    pageSize = pageSize,
+                    totalItems = totalItems,
+                    totalPages = totalPages
                 });
             }
             catch (Exception ex)
