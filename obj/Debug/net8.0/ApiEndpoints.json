@@ -285,6 +285,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Booking_thanhnt.Controllers.DashboardController",
+    "Method": "GetDashboard",
+    "RelativePath": "api/Dashboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Booking_thanhnt.Controllers.ServicesController",
     "Method": "GetServices",
     "RelativePath": "api/Services",
