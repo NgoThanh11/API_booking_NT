@@ -1,6 +1,7 @@
 ﻿using Booking_thanhnt.Data;
 using Booking_thanhnt.DTOs.Auth;
 using Booking_thanhnt.Models;
+using Booking_thanhnt.Models.DTOs.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -184,6 +185,100 @@ namespace Booking_thanhnt.Controllers
                 success = true,
                 message = "Đăng xuất thành công"
             });
+        }
+        #endregion
+
+        #region Đăng ký tài khoản
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegisterRequest request)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(request.Username))
+                {
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "Vui lòng nhập tên đăng nhập"
+                    });
+                }
+
+                if (string.IsNullOrWhiteSpace(request.PasswordHash))
+                {
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "Vui lòng nhập mật khẩu"
+                    });
+                }
+
+                if (string.IsNullOrWhiteSpace(request.FullName))
+                {
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "Vui lòng nhập họ tên"
+                    });
+                }
+
+                // Kiểm tra username đã tồn tại
+                var existingUser = await _context.Users
+                    .FirstOrDefaultAsync(x =>
+                        x.Username == request.Username);
+
+                if (existingUser != null)
+                {
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "Tên đăng nhập đã tồn tại"
+                    });
+                }
+
+                // Hash password
+                var passwordHash =
+                    BCrypt.Net.BCrypt.HashPassword(request.PasswordHash);
+
+                var user = new User
+                {
+                    Username = request.Username.Trim(),
+                    PasswordHash = passwordHash,
+                    FullName = request.FullName.Trim(),
+
+                    // Tài khoản đăng ký từ Client
+                    // mặc định là Customer
+                    Role = "Customer",
+
+                    IsActive = true,
+                    CreatedAt = DateTime.Now
+                };
+
+                _context.Users.Add(user);
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Đăng ký tài khoản thành công",
+                    data = new
+                    {
+                        userId = user.Id,
+                        username = user.Username,
+                        fullName = user.FullName,
+                        role = user.Role
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Có lỗi xảy ra khi đăng ký",
+                    error = ex.Message
+                });
+            }
         }
         #endregion
     }

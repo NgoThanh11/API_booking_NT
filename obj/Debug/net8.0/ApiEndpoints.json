@@ -26,6 +26,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Booking_thanhnt.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "api/Auth/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Booking_thanhnt.Models.DTOs.Auth.RegisterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Booking_thanhnt.Controllers.BarbersController",
     "Method": "GetBarbers",
     "RelativePath": "api/Barbers",
