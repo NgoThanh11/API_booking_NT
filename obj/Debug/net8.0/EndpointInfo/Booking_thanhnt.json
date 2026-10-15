@@ -884,6 +884,11 @@
             "type": "integer",
             "format": "int32"
           },
+          "createDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "branch": {
             "$ref": "#/components/schemas/Branch"
           }

@@ -1,5 +1,4 @@
-﻿using Azure;
-using Booking_thanhnt.Data;
+﻿using Booking_thanhnt.Data;
 using Booking_thanhnt.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +17,7 @@ namespace Booking_thanhnt.Controllers
         }
 
         // GET: api/Barbers
-        [HttpGet ("get-all-baber")]
+        [HttpGet("get-all-baber")]
         public async Task<IActionResult> GetBarbers(int page = 1, int pageSize = 10)
         {
             // Không cho page < 1
@@ -67,34 +66,69 @@ namespace Booking_thanhnt.Controllers
         public async Task<IActionResult> GetBarber(int id)
         {
             var barber = await _context.Barbers
-                .FindAsync(id);
+                .AsNoTracking()
+                .Where(b => b.BarberId == id)
+                .Select(b => new
+                {
+                    b.BarberId,
+                    b.Name,
+                    b.Experience,
+                    b.Phone,
+                    b.BranchId,
+                    b.CreateDate,
+                    Branch = b.Branch == null ? null : new
+                    {
+                        b.Branch.BranchId,
+                        b.Branch.BranchName,
+                        b.Branch.BranchAddress,
+                        b.Branch.BranchPhone
+                    }
+                })
+                .FirstOrDefaultAsync();
+
             if (barber == null)
             {
                 return NotFound(new
                 {
+                    success = false,
                     message = "Không tìm thấy thợ cắt tóc"
                 });
             }
 
-            return Ok(barber);
+            return Ok(new
+            {
+                success = true,
+                data = barber
+            });
         }
 
         // POST: api/Barbers
-        [HttpPost ("create-baber")]
+        [HttpPost("create-baber")]
         public async Task<IActionResult> CreateBarber([FromBody] Barber barber)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            //_context.Barbers.Add(Barber);
+            barber.CreateDate = DateTime.Now;
+            if (barber.BranchId == null)
+            {
+                return NotFound(new
+                {
+                    success = false,
+                    message = "Thiếu thông tin chi nhánh",
+                });
+            }
+            _context.Barbers.Add(barber);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(
-                nameof(GetBarber),
-                new { id = barber.BarberId },
-                barber
+            return Ok(
+                new
+                {
+                    success = true,
+                    message = "Thêm mới barber thành công",
+                    data = barber
+                }
             );
         }
 
@@ -108,6 +142,7 @@ namespace Booking_thanhnt.Controllers
             {
                 return BadRequest(new
                 {
+                    success = false,
                     message = "BarberId không khớp"
                 });
             }
@@ -119,6 +154,7 @@ namespace Booking_thanhnt.Controllers
             {
                 return NotFound(new
                 {
+                    success = false,
                     message = "Không tìm thấy thợ cắt tóc"
                 });
             }
@@ -143,6 +179,7 @@ namespace Booking_thanhnt.Controllers
             {
                 return NotFound(new
                 {
+                    success = false,
                     message = "Không tìm thấy thợ cắt tóc"
                 });
             }
@@ -152,6 +189,7 @@ namespace Booking_thanhnt.Controllers
 
             return Ok(new
             {
+                success = true,
                 message = "Xóa thợ cắt tóc thành công"
             });
         }

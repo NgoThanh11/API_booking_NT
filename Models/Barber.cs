@@ -10,6 +10,7 @@
 
         public string? Phone { get; set; }
         public int BranchId { get; set; }
+        public DateTime? CreateDate { get; set; }
 
         // Navigation property
         public Branch? Branch { get; set; }
