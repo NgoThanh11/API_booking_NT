@@ -64,7 +64,7 @@ namespace Booking_thanhnt.Controllers
             // Lấy dữ liệu của trang hiện tại
             var services = await query
                 .Skip((page - 1) * pageSize)
-                .Take(pageSize)
+                .Take(count: pageSize)
                 .ToListAsync();
 
             return Ok(new

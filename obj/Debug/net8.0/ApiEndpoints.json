@@ -43,18 +43,8 @@
   },
   {
     "ContainingType": "Booking_thanhnt.Controllers.BarbersController",
-    "Method": "GetBarbers",
-    "RelativePath": "api/Barbers",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Booking_thanhnt.Controllers.BarbersController",
     "Method": "CreateBarber",
-    "RelativePath": "api/Barbers",
+    "RelativePath": "api/Barbers/create-baber",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -69,45 +59,8 @@
   },
   {
     "ContainingType": "Booking_thanhnt.Controllers.BarbersController",
-    "Method": "GetBarber",
-    "RelativePath": "api/Barbers/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Booking_thanhnt.Controllers.BarbersController",
-    "Method": "UpdateBarber",
-    "RelativePath": "api/Barbers/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "barber",
-        "Type": "Booking_thanhnt.Models.Barber",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Booking_thanhnt.Controllers.BarbersController",
     "Method": "DeleteBarber",
-    "RelativePath": "api/Barbers/{id}",
+    "RelativePath": "api/Barbers/delete-baber",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -115,6 +68,64 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Booking_thanhnt.Controllers.BarbersController",
+    "Method": "GetBarbers",
+    "RelativePath": "api/Barbers/get-all-baber",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Booking_thanhnt.Controllers.BarbersController",
+    "Method": "GetBarber",
+    "RelativePath": "api/Barbers/get-by-id-baber",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Booking_thanhnt.Controllers.BarbersController",
+    "Method": "UpdateBarber",
+    "RelativePath": "api/Barbers/update-baber",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "barber",
+        "Type": "Booking_thanhnt.Models.Barber",
         "IsRequired": true
       }
     ],

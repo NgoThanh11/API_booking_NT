@@ -79,17 +79,61 @@
         }
       }
     },
-    "/api/Barbers": {
+    "/api/Barbers/get-all-baber": {
       "get": {
         "tags": [
           "Barbers"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
         ],
         "responses": {
           "200": {
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Barbers/get-by-id-baber": {
+      "get": {
+        "tags": [
+          "Barbers"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Barbers/create-baber": {
       "post": {
         "tags": [
           "Barbers"
@@ -120,28 +164,7 @@
         }
       }
     },
-    "/api/Barbers/{id}": {
-      "get": {
-        "tags": [
-          "Barbers"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
+    "/api/Barbers/update-baber": {
       "put": {
         "tags": [
           "Barbers"
@@ -149,8 +172,7 @@
         "parameters": [
           {
             "name": "id",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -181,7 +203,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Barbers/delete-baber": {
       "delete": {
         "tags": [
           "Barbers"
@@ -189,8 +213,7 @@
         "parameters": [
           {
             "name": "id",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "integer",
               "format": "int32"

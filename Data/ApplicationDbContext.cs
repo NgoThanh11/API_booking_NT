@@ -21,12 +21,20 @@ namespace Booking_thanhnt.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            // Quan hệ Booking - BookingService
             modelBuilder.Entity<BookingService>()
                 .HasOne(x => x.Booking)
                 .WithMany(x => x.BookingServices)
                 .HasForeignKey(x => x.BookingId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // Quan hệ Branch 1 - N Barber
+            modelBuilder.Entity<Barber>()
+                .HasOne(b => b.Branch)
+                .WithMany(br => br.Barbers)
+                .HasForeignKey(b => b.BranchId)
+                .OnDelete(DeleteBehavior.Restrict);
+    
         }
     }
 }
