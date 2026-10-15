@@ -884,7 +884,20 @@
             "type": "integer",
             "format": "int32"
           },
+          "placeResidence": {
+            "type": "string",
+            "nullable": true
+          },
+          "idCard": {
+            "type": "string",
+            "nullable": true
+          },
           "createDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "age": {
             "type": "string",
             "format": "date-time",
             "nullable": true

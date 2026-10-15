@@ -75,6 +75,9 @@ namespace Booking_thanhnt.Controllers
                     b.Experience,
                     b.Phone,
                     b.BranchId,
+                    b.Age,
+                    b.PlaceResidence,
+                    b.IdCard,
                     b.CreateDate,
                     Branch = b.Branch == null ? null : new
                     {
@@ -138,15 +141,6 @@ namespace Booking_thanhnt.Controllers
             int id,
             [FromBody] Barber barber)
         {
-            if (id != barber.BarberId)
-            {
-                return BadRequest(new
-                {
-                    success = false,
-                    message = "BarberId không khớp"
-                });
-            }
-
             var existingBarber = await _context.Barbers
                 .FindAsync(id);
 
@@ -162,10 +156,18 @@ namespace Booking_thanhnt.Controllers
             existingBarber.Name = barber.Name;
             existingBarber.Experience = barber.Experience;
             existingBarber.Phone = barber.Phone;
+            existingBarber.IdCard = barber.IdCard;
+            existingBarber.PlaceResidence = barber.PlaceResidence;
+            existingBarber.Age = barber.Age;
 
             await _context.SaveChangesAsync();
 
-            return Ok(existingBarber);
+            return Ok(new
+            {
+                success = true,
+                message = "Cập nhật barber thành công",
+                data = existingBarber
+            });
         }
 
         // DELETE: api/Barbers/1
@@ -190,7 +192,7 @@ namespace Booking_thanhnt.Controllers
             return Ok(new
             {
                 success = true,
-                message = "Xóa thợ cắt tóc thành công"
+                message = "Xóa thợ barber thành công"
             });
         }
     }
