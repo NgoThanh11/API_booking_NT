@@ -141,3 +141,10 @@ F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_th
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\Booking_thanhnt.genruntimeconfig.cache
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\ref\Booking_thanhnt.dll
 F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\MailKit.dll
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\Microsoft.Bcl.Cryptography.dll
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\MimeKit.dll
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\System.Formats.Asn1.dll
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+F:\Hyper_thanhnt\Booking_Api_thanhnt\Booking_thanhnt\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

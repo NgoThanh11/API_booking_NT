@@ -950,7 +950,8 @@
           },
           "barberId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "serviceIds": {
             "type": "array",

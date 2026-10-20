@@ -1,10 +1,11 @@
 ﻿
 using Booking_thanhnt.Data;
-using Microsoft.EntityFrameworkCore;
+using Booking_thanhnt.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
+using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 var jwtKey = builder.Configuration["Jwt:Key"]
     ?? throw new InvalidOperationException("Chưa cấu hình 'Jwt:Key' trong appsettings.json!");
@@ -87,7 +88,11 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
+//Cấu hình gửi mail
+builder.Services.Configure<EmailSettings>(
+    builder.Configuration.GetSection("EmailSettings"));
 
+builder.Services.AddScoped<IEmailService, EmailService>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

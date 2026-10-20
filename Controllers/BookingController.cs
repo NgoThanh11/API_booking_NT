@@ -1,9 +1,10 @@
 ﻿using Booking_thanhnt.Data;
 using Booking_thanhnt.Models;
+using Booking_thanhnt.Models.DTOs;
+using Booking_thanhnt.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using Booking_thanhnt.Models.DTOs;
+using System.Net;
 namespace Booking_thanhnt.Controllers
 {
 
@@ -12,10 +13,17 @@ namespace Booking_thanhnt.Controllers
     public class BookingController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IEmailService _emailService;
+        private readonly ILogger<BookingController> _logger;
 
-        public BookingController(ApplicationDbContext context)
+        public BookingController(
+            ApplicationDbContext context,
+            IEmailService emailService,
+            ILogger<BookingController> logger)
         {
             _context = context;
+            _emailService = emailService;
+            _logger = logger;
         }
 
         #region  Đặt lịch Booking
@@ -67,17 +75,17 @@ namespace Booking_thanhnt.Controllers
                 }
 
                 // 3. Kiểm tra Barber
-                var barber = await _context.Barbers
-                    .FirstOrDefaultAsync(x => x.BarberId == request.BarberId);
+                //var barber = await _context.Barbers
+                //    .FirstOrDefaultAsync(x => x.BarberId == request.BarberId);
 
-                if (barber == null)
-                {
-                    return BadRequest(new
-                    {
-                        success = false,
-                        message = "Barber không tồn tại"
-                    });
-                }
+                //if (barber == null)
+                //{
+                //    return BadRequest(new
+                //    {
+                //        success = false,
+                //        message = "Barber không tồn tại"
+                //    });
+                //}
 
                 // 4. Kiểm tra Service
                 if (request.ServiceIds == null || !request.ServiceIds.Any())
@@ -149,12 +157,107 @@ namespace Booking_thanhnt.Controllers
                         Price = service.Price
                     });
                 }
+
                 // 7. Thêm vào database
                 _context.Bookings.Add(booking);
 
                 await _context.SaveChangesAsync();
 
-                // 8. Trả kết quả
+                // 8. Gửi email xác nhận sau khi lưu booking thành công
+                if (!string.IsNullOrWhiteSpace(booking.Email))
+                {
+                    try
+                    {
+                        var serviceDetails = string.Join(
+                            "<br/>",
+                            booking.BookingServices.Select(x =>
+                                $"{WebUtility.HtmlEncode(x.Service_text)} - " +
+                                $"{x.Price:N0} VNĐ"
+                            )
+                        );
+
+                        var totalPrice = booking.BookingServices
+                            .Sum(x => x.Price);
+
+                        var customerName =
+                            WebUtility.HtmlEncode(booking.CustomerName);
+
+                        var bookingTime =
+                            WebUtility.HtmlEncode(
+                                Convert.ToString(booking.BookingTime) ?? ""
+                            );
+
+                        var barberName =
+                            WebUtility.HtmlEncode(booking.Barber_text ?? "");
+
+                        var branchName =
+                            WebUtility.HtmlEncode(booking.Branch_text ?? "");
+
+                        var emailBody = $@"
+                        <div style='font-family:Arial,sans-serif;
+                                    max-width:600px;margin:auto;
+                                    line-height:1.7;color:#333'>
+                            <h2 style='color:#15397F'>
+                                Đặt lịch thành công!
+                            </h2>
+
+                            <p>Xin chào <b>{customerName}</b>,</p>
+
+                            <p>
+                                Cảm ơn bạn đã đặt lịch tại Barber Smile11.
+                                Dưới đây là thông tin lịch hẹn của bạn:
+                            </p>
+
+                            <div style='background:#f5f7fb;
+                                        padding:16px;border-radius:8px'>
+                                <p><b>Mã lịch đặt:</b> {booking.Id}</p>
+                                <p><b>Khách hàng:</b> {customerName}</p>
+                                <p><b>Số điện thoại:</b>
+                                    {WebUtility.HtmlEncode(booking.Phone)}</p>
+                                <p><b>Chi nhánh:</b> {branchName}</p>
+                                <p><b>Thợ cắt tóc:</b> {barberName}</p>
+                                <p><b>Ngày đặt:</b>
+                                    {booking.BookingDate:dd/MM/yyyy}</p>
+                                <p><b>Giờ đặt:</b> {bookingTime}</p>
+
+                                <hr/>
+
+                                <p><b>Dịch vụ:</b></p>
+                                {serviceDetails}
+
+                                <p><b>Tổng tiền dịch vụ:</b>
+                                    {totalPrice:N0} VNĐ</p>
+
+                                <p><b>Trạng thái:</b> Chờ xác nhận</p>
+                            </div>
+
+                            <p>
+                                Vui lòng đến đúng giờ hẹn.
+                                Chúng tôi sẽ liên hệ nếu cần thêm thông tin.
+                            </p>
+
+                            <p>Trân trọng,<br/>
+                               <b>Barber Smile11</b></p>
+                        </div>";
+
+                        await _emailService.SendEmailAsync(
+                            booking.Email,
+                            "Xác nhận đặt lịch Barber #" + booking.Id,
+                            emailBody
+                        );
+                    }
+                    catch (Exception emailEx)
+                    {
+                        // Email lỗi không làm mất booking đã lưu.
+                        _logger.LogError(
+                            emailEx,
+                            "Không gửi được email xác nhận cho booking {BookingId}",
+                            booking.Id
+                        );
+                    }
+                }
+
+                // 9. Trả kết quả
                 return Ok(new
                 {
                     success = true,

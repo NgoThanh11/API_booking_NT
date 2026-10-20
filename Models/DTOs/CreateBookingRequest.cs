@@ -4,7 +4,7 @@ public class CreateBookingRequest
 {
     public int BranchId { get; set; }
 
-    public int BarberId { get; set; }
+    public int? BarberId { get; set; }
 
     public List<int> ServiceIds { get; set; }
 
