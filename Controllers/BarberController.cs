@@ -16,6 +16,100 @@ namespace Booking_thanhnt.Controllers
             _context = context;
         }
 
+        #region api search
+        public class BarberSearchRequest
+        {
+            public string? Name { get; set; }
+            public string? Phone { get; set; }
+            public int? BranchId { get; set; }
+            public int Page { get; set; } = 1;
+            public int PageSize { get; set; } = 10;
+        }
+        [HttpPost("search-barber")]
+        public async Task<IActionResult> SearchBarber(
+            [FromBody] BarberSearchRequest request)
+        {
+
+            string? name = request.Name;
+            string? phone = request.Phone;
+            int? branchId = request.BranchId;
+
+            int page = 1;
+            int pageSize = request.PageSize;
+
+
+            if (page < 1 || pageSize < 1)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Page và PageSize phải lớn hơn 0"
+                });
+            }
+
+            pageSize = Math.Min(pageSize, 100);
+
+            var query = _context.Barbers
+                .AsNoTracking()
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                name = name.Trim();
+                query = query.Where(b => b.Name.Contains(name));
+            }
+
+            if (!string.IsNullOrWhiteSpace(phone))
+            {
+                phone = phone.Trim();
+                query = query.Where(b =>
+                    b.Phone != null && b.Phone.Contains(phone));
+            }
+
+            if (branchId.HasValue)
+            {
+                query = query.Where(b =>
+                    b.BranchId == branchId.Value);
+            }
+
+            var totalItems = await query.CountAsync();
+
+            var totalPages = (int)Math.Ceiling(
+                (double)totalItems / pageSize);
+
+            var data = await query
+                .OrderByDescending(b => b.BarberId)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(b => new
+                {
+                    b.BarberId,
+                    b.Name,
+                    b.Phone,
+                    b.Experience,
+                    b.BranchId,
+                    BranchName = b.Branch != null
+                        ? b.Branch.BranchName
+                        : null
+                })
+                .ToListAsync();
+
+            return Ok(new
+            {
+                success = true,
+                message = "Tìm kiếm Barber thành công",
+                data,
+                pagination = new
+                {
+                    currentPage = page,
+                    pageSize,
+                    totalItems,
+                    totalPages
+                }
+            });
+        }
+        #endregion
+
         // GET: api/Barbers
         [HttpGet("get-all-baber")]
         public async Task<IActionResult> GetBarbers(int page = 1, int pageSize = 10)

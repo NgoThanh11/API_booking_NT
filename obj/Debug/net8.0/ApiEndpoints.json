@@ -112,6 +112,22 @@
   },
   {
     "ContainingType": "Booking_thanhnt.Controllers.BarbersController",
+    "Method": "SearchBarber",
+    "RelativePath": "api/Barbers/search-barber",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Booking_thanhnt.Controllers.BarbersController\u002BBarberSearchRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Booking_thanhnt.Controllers.BarbersController",
     "Method": "UpdateBarber",
     "RelativePath": "api/Barbers/update-baber",
     "HttpMethod": "PUT",
